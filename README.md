@@ -6,4 +6,4 @@
 * scrapy crawl "크롤러이름"
 * scrapy crawl "크롤러이름" -o "저장할 파일명" -t "csv/xml/json"
     * json 한글깨짐 > settings.py > FEED_EXPORT_ENCODING='utf-8' 추가
-    * scrapy crawl gmarket -o gmarket.json -t json
+    * scrapy crawl "" -o "".json -t json
