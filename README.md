@@ -7,3 +7,5 @@
 * scrapy crawl "크롤러이름" -o "저장할 파일명" -t "csv/xml/json"
     * json 한글깨짐 > settings.py > FEED_EXPORT_ENCODING='utf-8' 추가
     * scrapy crawl "" -o "".json -t json
+* setting.py > ITEM_PIPELINES 주석 제거 (파이프라인 사용)
+    * 데이터 후처리, 조건 등 추가할 때 
