@@ -11,9 +11,9 @@ from scrapy.exceptions import DropItem
 
 class EcommercePipeline:
     def process_item(self, item, spider):
-        print('process_item', item)
-        if int(item['price']) > 10000:
-            return item
-        else:
-            raise DropItem("dropitem", item)
-        # return item
+        # print('process_item', item)
+        # if int(item['price']) > 10000:
+        #     return item
+        # else:
+        #     raise DropItem("dropitem", item)
+        return item

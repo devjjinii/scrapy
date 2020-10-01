@@ -1,4 +1,5 @@
 import scrapy
+from ecommerce.items import EcommerceItem
 
 
 class GmarketCategoryAllSpider(scrapy.Spider):
@@ -17,7 +18,7 @@ class GmarketCategoryAllSpider(scrapy.Spider):
             # print(category_link, category_names[index])
             # print('http://corners.gmarket.co.kr' + category_link, category_names[index])
             yield scrapy.Request(url='http://corners.gmarket.co.kr' + category_link, callback=self.parse_items, meta={'maincategory_name':
-                category_names[index]})
+                category_names[index], 'subcategory_name': 'ALL'})
 
         for index, category_link in enumerate(category_links):
             yield scrapy.Request(url='http://corners.gmarket.co.kr' + category_link, callback=self.parse_subcategory, meta={'maincategory_name':
@@ -34,10 +35,12 @@ class GmarketCategoryAllSpider(scrapy.Spider):
 
 
     def parse_items(self, response):
-        print('parse_maincategory', response.meta['maincategory_name'])
+        print('parse_maincategory', response.meta['maincategory_name'], response.meta['subcategory_name'])
 
         best_items = response.css('div.best-list')
         for index, item in enumerate(best_items[1].css('li')):
+            doc = EcommerceItem()
+            
             ranking = index + 1
             title = item.css('a.itemname::text').get()
             ori_price = item.css('div.o-price::text').get()
@@ -52,8 +55,18 @@ class GmarketCategoryAllSpider(scrapy.Spider):
                 discount_percent = '0'
             else:
                discount_percent = discount_percent.replace("%", "")
-       
+
+            doc['main_category_name'] = response.meta['maincategory_name']
+            doc['sub_category_name'] = response.meta['subcategory_name']
+            doc['ranking'] = ranking
+            doc['title'] = title
+            doc['ori_price'] = ori_price
+            doc['dis_price'] = dis_price
+            doc['discount_percent'] = discount_percent
             # print(ranking, title, ori_price, dis_price, discount_percent)
+            yield doc
+            
+            
 
     # def parse_sub(self, response):
     #     pass
