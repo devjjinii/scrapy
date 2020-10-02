@@ -49,8 +49,8 @@ class GmarketCategoryAllSpider(scrapy.Spider):
            
             if ori_price == None:
                 ori_price = dis_price
-                ori_price = ori_price.replace(",", "").replace("원", "")
-                dis_price = dis_price.replace(",", "").replace("원", "")
+            ori_price = ori_price.replace(",", "").replace("원", "")
+            dis_price = dis_price.replace(",", "").replace("원", "")
             if discount_percent == None:
                 discount_percent = '0'
             else:
@@ -65,8 +65,7 @@ class GmarketCategoryAllSpider(scrapy.Spider):
             doc['discount_percent'] = discount_percent
             # print(ranking, title, ori_price, dis_price, discount_percent)
             yield doc
-            
-            
+        
 
     # def parse_sub(self, response):
     #     pass
